@@ -6,15 +6,16 @@ def collate(*args):
     '''A generator function. 
 
     Args: 
-        Each arg is an iterable. All args have the same number of elements. 
+        Takes n (any) number of arguments. Each arg is an iterable. All args have the same number of elements. 
 
     Yields: 
-        tuple(value of next element of iterable1, next element of iterable2, next element of iterable3, ...)
+        tuple(value of next element of iterable args[1], ..., next element of iterable args[n] )
     
     Exceptions:
         If the first arg has more number of elements than any of the other arguments then iterating past the len(argument) of the argument that has the least number of elements will result in the error IndexError: list index out of range
  
-    All elements of args[1], args[2] that fall beyond len(arg[0]) will be discarded.
+    Note:
+    All elements of args[1] ... args[n] that fall beyond len(arg[0]) will be discarded.
 
     Example:
 
@@ -49,4 +50,3 @@ if __name__ == "__main__":
     generator = collate(array1, array2, array3, array4, array5)
     for value in generator:
         print(value)
-    pass
