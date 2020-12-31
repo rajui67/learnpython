@@ -1,0 +1,15 @@
+write(1, "Counting with flush set to TRUE ", 32) = 32
+write(1, ".\n", 2)                      = 2
+write(1, ".\n", 2)                      = 2
+write(1, ".\n", 2)                      = 2
+write(1, ".\n", 2)                      = 2
+write(1, ".\n", 2)                      = 2
+write(1, "\nThere were 5 items", 19)    = 19
+write(1, "\n", 1)                       = 1
+write(1, "Counting with flush set to false"..., 35) = 35
+write(1, ".\n", 2)                      = 2
+write(1, ".\n", 2)                      = 2
+write(1, ".\n", 2)                      = 2
+write(1, ".\n", 2)                      = 2
+write(1, "\nThere were 5 items", 19)    = 19
+write(1, "\n", 1)                       = 1

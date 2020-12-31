@@ -1,0 +1,6 @@
+how to check whether a file exists
+how to specify a base path
+    1. In an os level environment variable
+    2. In a default configuration file that python reads at startup
+    3. In a custom file that my product/module reads at startup
+    
