@@ -1,52 +1,35 @@
-'''This module demonstrates that a yield statement in a function makes the function a generator'''
-
-from typing import Union, List, Tuple
+'''This module defines the collate function'''
 
 def collate(*args):
-    '''A generator function. 
+    '''A generator function yielding tuples until input is exhausted.
+    
+    >>> list(collate('ab', [11, 12, 13], [21, 22, 23, 24]))
+    [('a', 11, 21), ('b', 12, 22), (None, 13, 23), (None, None, 24)]
+    
+    The collate object yields n tuples, where n is the number of elements of the largest iterable. The size of each tuple is equal to the number of arguments to collate(). The i-th element in every tuple comes from the i-th iterable argument to collate(). This continues until the largest argument is exhausted. Smaller arguments contribute None in lieu of their i-th element once they are exhausted.  
 
     Args: 
-        Takes n (any) number of arguments. Each arg is an iterable. All args have the same number of elements. 
-
-    Yields: 
-        tuple(value of next element of iterable args[1], ..., next element of iterable args[n] )
-    
-    Exceptions:
-        If the first arg has more number of elements than any of the other arguments then iterating past the len(argument) of the argument that has the least number of elements will result in the error IndexError: list index out of range
- 
-    Note:
-    All elements of args[1] ... args[n] that fall beyond len(arg[0]) will be discarded.
-
-    Example:
-
-        array1 = [11, 12, 13]
-        array2 = [21, 22, 23, 24, 25]
-        array3 = [31, 32, 33] 
-        generator = collate(array1, array2, array3, array4, array5)
-        for value in generator:
-            print(value)
-        pass
-    
-    Will result in:
-        (11, 21, 31)
-        (12, 22, 32)
-        (13, 23, 33)    
+        Takes any nuqmber of arguments. Each arg is an iterable. 
     '''
     
     total_number_of_arguments = len(args)
-    total_iterations = len(args[0])
+    total_iterations = 0
+    for itble in args:
+        if len(itble) > total_iterations:
+            total_iterations = len(itble)
+
     for  iteration in range(0, total_iterations):
         collated_value = []
         for argument_number in range(0, total_number_of_arguments):
-            collated_value.append(args[argument_number][iteration])
+            collated_value.append(args[argument_number][iteration] if len(args[argument_number]) > iteration else None)
         yield tuple(collated_value)
 
 if __name__ == "__main__":
     array1 = [11, 12, 13]
-    array2 = [21, 22, 23, 24, 25]
+    array2 = [21, 22, 23, 24, 25, 26, 27]
     array3 = [31, 32, 33] 
     array4 = [41, 42, 43]
-    array5 = (52, 53, 54)
-    generator = collate(array1, array2, array3, array4, array5)
-    for value in generator:
+    array5 = [52, 53, 54]
+    collater = collate(array1, array2, array3, array4, array5)
+    for value in collater:
         print(value)
